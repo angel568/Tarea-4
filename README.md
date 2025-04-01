@@ -28,7 +28,7 @@ IDE recomendado: IntelliJ IDEA o Eclipse
 
 🚀 Cómo Ejecutar
 1️⃣ Clona este repositorio o descarga los archivos.
-git clone https://github.com/angel568/Tarea-4-java.git
+git clone https://github.com/angel568/Tarea-4
 cd Tarea-4-java
 
 2️⃣ Compila y ejecuta el proyecto.
