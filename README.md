@@ -1,4 +1,4 @@
-# Gestión de Usuarios en Java Swing
+# Gestión de Usuarios 
 
 Este es un sistema de gestión de usuarios desarrollado en **Java Swing**, que permite **registrar, iniciar sesión, listar, actualizar y eliminar usuarios**. Los datos se almacenan en memoria (sin base de datos).
 
