@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class LoginScreen extends JFrame {
     private JTextField usernameField;
@@ -13,7 +11,6 @@ public class LoginScreen extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new GridLayout(3, 2, 10, 10));
 
-        // Campos de entrada
         add(new JLabel("Usuario:"));
         usernameField = new JTextField();
         add(usernameField);
@@ -22,25 +19,28 @@ public class LoginScreen extends JFrame {
         passwordField = new JPasswordField();
         add(passwordField);
 
-        // Botón de login
         JButton loginButton = new JButton("Iniciar sesión");
-        loginButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                String password = new String(passwordField.getPassword());
+        loginButton.addActionListener(e -> {
+            String username = usernameField.getText().trim();
+            String password = new String(passwordField.getPassword());
 
-                if (UserManager.authenticate(username, password) != null) {
-                    new UserListScreen();
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+            if (username.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(null,
+                        "Debe ingresar su usuario y contraseña, si no está registrado debe registrarse.",
+                        "Campos vacíos", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            User usuario = UserManager.authenticate(username, password);
+            if (usuario != null) {
+                new UserListScreen();
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         add(loginButton);
 
-        // Botón de registro
         JButton registerButton = new JButton("Registrarse");
         registerButton.addActionListener(e -> new RegisterScreen());
         add(registerButton);

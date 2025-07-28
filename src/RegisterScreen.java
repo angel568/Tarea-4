@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class RegisterScreen extends JFrame {
     private JTextField usernameField, firstNameField, lastNameField, phoneField, emailField;
@@ -13,59 +11,55 @@ public class RegisterScreen extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new GridLayout(8, 2, 10, 10));
 
-        add(new JLabel("Usuario:"));
         usernameField = new JTextField();
-        add(usernameField);
-
-        add(new JLabel("Nombre:"));
         firstNameField = new JTextField();
-        add(firstNameField);
-
-        add(new JLabel("Apellido:"));
         lastNameField = new JTextField();
-        add(lastNameField);
-
-        add(new JLabel("Teléfono:"));
         phoneField = new JTextField();
-        add(phoneField);
-
-        add(new JLabel("Correo:"));
         emailField = new JTextField();
-        add(emailField);
-
-        add(new JLabel("Contraseña:"));
         passwordField = new JPasswordField();
-        add(passwordField);
-
-        add(new JLabel("Confirmar Contraseña:"));
         confirmPasswordField = new JPasswordField();
-        add(confirmPasswordField);
+
+        add(new JLabel("Usuario:")); add(usernameField);
+        add(new JLabel("Nombre:")); add(firstNameField);
+        add(new JLabel("Apellido:")); add(lastNameField);
+        add(new JLabel("Teléfono:")); add(phoneField);
+        add(new JLabel("Correo:")); add(emailField);
+        add(new JLabel("Contraseña:")); add(passwordField);
+        add(new JLabel("Confirmar Contraseña:")); add(confirmPasswordField);
 
         JButton registerButton = new JButton("Registrar");
-        registerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                String firstName = firstNameField.getText();
-                String lastName = lastNameField.getText();
-                String phone = phoneField.getText();
-                String email = emailField.getText();
-                String password = new String(passwordField.getPassword());
-                String confirmPassword = new String(confirmPasswordField.getPassword());
+        registerButton.addActionListener(e -> {
+            String username = usernameField.getText().trim();
+            String firstName = firstNameField.getText().trim();
+            String lastName = lastNameField.getText().trim();
+            String phone = phoneField.getText().trim();
+            String email = emailField.getText().trim();
+            String password = new String(passwordField.getPassword());
+            String confirmPassword = new String(confirmPasswordField.getPassword());
 
-                if (!password.equals(confirmPassword)) {
-                    JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                UserManager.addUser(new User(username, firstName, lastName, phone, email, password));
-                JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
-
-                dispose();
+            if (username.isEmpty() || firstName.isEmpty() || lastName.isEmpty() ||
+                    phone.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.", "Campos vacíos", JOptionPane.WARNING_MESSAGE);
+                return;
             }
-        });
 
+            if (!password.equals(confirmPassword)) {
+                JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (UserManager.getUserByUsername(username) != null) {
+                JOptionPane.showMessageDialog(null, "El nombre de usuario ya está registrado.", "Usuario existente", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            User nuevoUsuario = new User(username, firstName, lastName, phone, email, password);
+            UserManager.addUser(nuevoUsuario);
+            JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente.");
+            dispose();
+        });
         add(registerButton);
+
         setLocationRelativeTo(null);
         setVisible(true);
     }
