@@ -22,6 +22,7 @@ Este es un sistema de gestión de usuarios desarrollado en Java Swing, que permi
 /GestorUsuarios
 
 │── src
+
 │   ├── Main.java               # Punto de entrada del programa
 
 │   ├── LoginScreen.java        # Interfaz de inicio de sesión
@@ -67,6 +68,7 @@ CREATE DATABASE sistema_usuarios;
 USE sistema_usuarios;
 
 CREATE TABLE usuarios (
+
     username VARCHAR(50) PRIMARY KEY,
     first_name VARCHAR(50),
     last_name VARCHAR(50),
