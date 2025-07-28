@@ -33,11 +33,13 @@ MySQL Connector/J (JDBC) agregado al proyecto
 IDE recomendado: IntelliJ IDEA o Eclipse
 
 🚀 Cómo Ejecutar
+
 1️⃣ Clona este repositorio o descarga los archivos:
 git clone https://github.com/angel568/Tarea-4
 cd Tarea-4-java
 
 2️⃣ Configura la base de datos MySQL ejecutando el siguiente script SQL para crear la base y tabla:
+
 CREATE DATABASE sistema_usuarios;
 
 USE sistema_usuarios;
@@ -54,10 +56,12 @@ CREATE TABLE usuarios (
 3️⃣ Modifica los datos de conexión en ConexionDB.java con tu usuario y contraseña MySQL.
 
 4️⃣ Compila y ejecuta el proyecto.
+
 javac -d bin src/*.java
 java -cp bin Main
 
 🖥️ Uso
+
 Abre la aplicación.
 
 Regístrate con un nuevo usuario (los datos se guardan en la base de datos).
